@@ -2,10 +2,10 @@ School Assignment
 
 
 I built my "kv store" with 500 pods.
-My design is governed by the global variables set in "a2_lib.h". I allocate TOTAL_SIZE (TOTAL SIZE is an int that represents the number of bytes allocated) in memory and structure it according to the following design.
+My design is governed by the global variables set in "lib.h". I allocate TOTAL_SIZE (TOTAL SIZE is an int that represents the number of bytes allocated) in memory and structures it according to the following design.
 
 I implement 500 pods where  (4 + 500(POD_SIZE)= TOTAL_SIZE. The 4 bytes at the beginning is left for an int that counts the number of readers currently reading from the kv_store (“readersCount”). The semaphores used this number when locking or releasing the RW lock. POD_SIZE is governed by this formula (MAX_BUCKETS*(20+(KV_PAIR_COUNT(256+32)))) = POD_SIZE 
-MAX_BUCKETS is the number of buckets each pod has in order to account for collision, I currently have this set to 15. I ran another external program that tested the hash function for collision rate, the max number I got was 11 and am using 15 just to be safe (as this assignment isn’t really testing for efficiency).
+MAX_BUCKETS is the number of buckets each pod has in order to account for collision, I currently have this set to 15. I ran another external program that tested the hash function for collision rate, the max number I got was 11 and am using 15 just to be safe (as this assignment isn’t really testing for efficiency and the hash function is relativley weak).
 Collision is accounted for by when a key is hashed we go to the pod that it points to and then for all the non NULL buckets we iterate through and strcmp the keys until there is a match. If all buckets have been filled and there is no match then it overwrites the 1st bucket 
 
 KV_PAIR_COUNT is the number of blocks allocated per pod (per bucket) to write kv pairs 
@@ -27,6 +27,7 @@ store the str length of the key so that when dealing with collision it is more e
 
 
 Throughout the assignment I traverse through my shared memory using the “addr” (i.e addr += 4 or addr+= strlen(key) pointer that I retrieve when I mmap the space. I follow the above rules I have set out to ensure accurate reads and writes
+Another way to use this would've been structs but I chose to do it this way
 
 
 
