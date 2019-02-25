@@ -1,4 +1,4 @@
-Kaan Yilmaz: 260706265
+School Assignment
 
 
 I built my "kv store" with 500 pods.
