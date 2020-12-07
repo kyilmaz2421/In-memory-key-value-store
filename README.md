@@ -15,11 +15,9 @@ Collision is accounted for by when a key is hashed we go to the pod that it poin
 
 `KV_PAIR_COUNT` is the number of blocks allocated per pod (per bucket) to write kv pairs 
 each block is then comprised of 288 bytes (32 for key and 256 for value).
-
 Note: The tester sets this number to 256 so I did this as well.
 
-
-lastly for each bucket the 20 bytes are there for bookeeping purposes as described below:
+Lastly for each bucket the 20 bytes are there for bookeeping purposes as described below:
 
 1. The 1st set of 4 bytes: `numFreeLeft` determining how many blocks of `KV_PAIRS` in pod are free still and haven’t been written to, this initialized to `KV_PAIR_COUNT` up creation of the shared memory
 
